@@ -33,11 +33,15 @@ const Project = () => {
                     <div className="p-3 backdrop-filter backdrop-blur-3xl w-fit rounded-lg"
                          style={currentProject.logoStyle}>
                         <img src={currentProject.logo} alt="logo" className="w-10 h-10 shadow-sm" />
+                        {/* Show extraImage if it exists */}
+                        {currentProject.extraImage && (
+                          <img src={currentProject.extraImage} alt="extra" className="w-16 h-16 ml-4 inline-block rounded shadow" />
+                        )}
                     </div>
                     <div className="flex flex-col gap-5 text-gray-600 my-5">
                         <p className="text-white text-2xl font-semibold animateText">{currentProject.title}</p>
-                        <p className="animateText">{currentProject.desc}</p>
-                        <p className="animateText">{currentProject.subdesc}</p>
+                        <p className="text-lg font-medium text-white animateText drop-shadow-md">{currentProject.desc}</p>
+                        <p className="text-base font-normal text-white/90 animateText drop-shadow">{currentProject.subdesc}</p>
                     </div>
                     <div className="flex items-center justify-between flex-wrap gap-5">
                         <div className="flex items-center gap-3">
@@ -64,19 +68,20 @@ const Project = () => {
                         </button>
                     </div>
                 </div>
-                <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full">
-                    <Canvas>
-                        <ambientLight intensity={Math.PI/2} />
-                        <directionalLight position={[10, 10, 5]} />
-                        <Center>
-                        <Suspense fallback={<CanvasLoader />}>
-                            <group scale={2} position={[0 , -3 , 0]} rotation={[0, -0.1, 0]}>
-                                <DemoComputer/>
-                            </group>
-                        </Suspense>
-                        </Center>
-                        <OrbitControls maxPolarAngle={Math.PI / 2} enableZoom={false}/>
-                    </Canvas>
+                <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full flex items-center justify-center">
+                    <img
+                      src={currentProject.title === 'StayHeaven - Bringing travelers closer to unique, local stays'
+                        ? '/assets/stayHeaven.png'
+                        : currentProject.title === 'QUIZ Game (Who want to be Millionaire)'
+                        ? '/assets/hwb.png'
+                        : currentProject.title === 'Dice - Game Web App'
+                        ? '/assets/Dice.png'
+                        : currentProject.title === 'SmartCal - Calendar app with dynamic date UI'
+                        ? '/assets/cal.png'
+                        : currentProject.spotlight}
+                      alt="project spotlight"
+                      className="w-full h-full object-contain rounded-xl"
+                    />
                 </div>
             </div>
         </section>
